@@ -12,6 +12,10 @@ header {
     background-color: black;
 }
 
+.selectOption {
+    max-width: 50%;
+}
+
 #triviaContainer {
     background-color: rgb(27, 164, 164);
     height: 100vh;

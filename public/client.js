@@ -25,8 +25,9 @@
 const api_url = 'https://opentdb.com/api.php?amount=1';
 const triviaContainer = document.getElementById('triviaContainer');
 
-// hide and unhide random button due to api call restriction every second
 const questionBtn = document.getElementById('random')
+
+// hide and unhide random button due to api call restriction every second
 function questionBtnToggle(){
     questionBtn.style.visibility = 'hidden'
     setTimeout(()=>questionBtn.style.visibility = 'visible',3000)
