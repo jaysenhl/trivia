@@ -80,12 +80,17 @@ function createBooleanContainer(question) {
     const btnContainer = document.createElement('div');
     btnContainer.classList.add('booleanBtnContainer');
 
-    ['True', 'False'].forEach(answer => {
-        const button = document.createElement('button');
-        button.classList.add('btn', answer === 'True' ? 'btn-success' : 'btn-danger', 'booleanBtnanswers');
-        button.textContent = answer;
-        btnContainer.append(button);
-    });
+    const truebutton = document.createElement('button')
+    truebutton.textContent = 'True'
+    truebutton.classList.add('btn', 'btn-success', 'booleanBtnanswers')
+    truebutton.id = 'trueBtn'
+    btnContainer.append(truebutton)
+
+    const falsebutton = document.createElement('button')
+    falsebutton.textContent = 'False'
+    falsebutton.classList.add('btn', 'btn-danger', 'booleanBtnanswers')
+    falsebutton.id = 'falseBtn'
+    btnContainer.append(falsebutton)
 
     container.append(btnContainer);
     return container;
