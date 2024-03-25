@@ -1,0 +1,81 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Kanit", sans-serif;
+}
+
+header {
+    background-color: black;
+}
+
+#triviaContainer {
+    background-color: rgb(27, 164, 164);
+    height: 100vh;
+}
+
+span {
+    color: white;
+}
+
+.label-container {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    margin-bottom: 10px;
+}
+
+.label-container > span {
+    color: aqua;
+}
+
+.question {
+    background-color: rgb(0, 0, 0);
+    border: 2px solid white;
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
+
+#booleanContainer, .booleanBtnContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 55vh;
+}
+
+#multiContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 55vh;
+}
+
+
+.multiBtnContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 55vh;
+}
+
+.multiBtnanswers {
+    border: 2px solid white;
+    margin-bottom: 5px;
+}
+
+#trueBtn, #falseBtn {
+    font-size: 1.5rem;
+    padding: 30px;
+    margin-bottom: 15px;
+}
+
+h3,h4 {
+    padding: 5px 5px;
+    margin-bottom: 0;
+}
