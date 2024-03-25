@@ -4,6 +4,8 @@
     DONE cambiar de lugar las posiciones de la respuesta correcta
     DONE validar si la que la seleccion sea correcta o incorrecta en cierto y falso
     DONE validar si la que la seleccion sea correcta o incorrecta en selección multiple
+    DONE mostrar con alert JS una alerta para las booleans
+    - mostrar con alert JS una alerta para las multiples
     - mostrar con alert JS una alerta con la contestacion y los puntos obtenidos o restados
     - restar puntos y sumar puntos dependiendo la contestacion
     - anadir los botones de boolean y multi
@@ -19,7 +21,8 @@
  */
 
 // URL de la API
-const api_url = 'https://opentdb.com/api.php?amount=1&type=multiple';
+
+const api_url = 'https://opentdb.com/api.php?amount=1&type=multiple&type=boolean';
 const triviaContainer = document.getElementById('triviaContainer');
 
 // hide and unhide random button due to api call restriction every second
@@ -41,6 +44,15 @@ function decodeHtml(html) {
     const textArea = document.createElement('textarea');
     textArea.innerHTML = html;
     return textArea.value;
+}
+
+// crear category and type container
+function createCategortTypeContainer(cat,tipo){
+    const categoryTypeContainer = document.createElement('div');
+    categoryTypeContainer.classList.add('label-container');
+    categoryTypeContainer.id = 'categoryTypeContainer';
+    categoryTypeContainer.innerHTML = `<span class='mb-2'>Category: ${cat}</span><span class='mb-2'>Type: ${tipo}</span>`;
+    return categoryTypeContainer
 }
 
 // Función para crear el contenedor de preguntas múltiples
@@ -122,7 +134,7 @@ function createBooleanContainer(question, correct_answer) {
 
     const truebutton = document.createElement('button')
     truebutton.textContent = 'True'
-    truebutton.classList.add('btn','booleanBtnanswers')
+    truebutton.classList.add('btn','btn-info','booleanBtnanswers')
     truebutton.id = 'trueBtn'
     btnContainer.append(truebutton)
 
@@ -132,7 +144,7 @@ function createBooleanContainer(question, correct_answer) {
 
     const falsebutton = document.createElement('button')
     falsebutton.textContent = 'False'
-    falsebutton.classList.add('btn','booleanBtnanswers')
+    falsebutton.classList.add('btn','btn-info','booleanBtnanswers')
     falsebutton.id = 'falseBtn'
     btnContainer.append(falsebutton)
 
@@ -147,14 +159,21 @@ function createBooleanContainer(question, correct_answer) {
 // check boolean answer function
 function checkBooleanAnswer(selectedAnswer, isCorrectAnswerTrue) {
     questionBtnToggle()
+
     const trueButton = document.getElementById('trueBtn');
+    trueButton.classList.remove('btn-info')
     const falseButton = document.getElementById('falseBtn');
+    falseButton.classList.remove('btn-info')
 
-    const isCorrectAnswer = selectedAnswer.toString().toLowerCase() === isCorrectAnswerTrue.toLowerCase();
+    const isCorrect = selectedAnswer.toString().toLowerCase() === isCorrectAnswerTrue.toLowerCase();
 
-
-    if (isCorrectAnswer) {
-        // Respuesta correcta
+     // Configurar la respuesta y los estilos de los botones basado en si la respuesta es correcta.
+     if (isCorrect) {
+        Swal.fire({
+            title: "Correct!",
+            text: `You selected: ${selectedAnswer}. That's right!`,
+            icon: "success"
+        });
         if (selectedAnswer) {
             trueButton.classList.add('btn-success');
             falseButton.classList.add('btn-danger');
@@ -162,9 +181,13 @@ function checkBooleanAnswer(selectedAnswer, isCorrectAnswerTrue) {
             falseButton.classList.add('btn-success');
             trueButton.classList.add('btn-danger');
         }
-        // Aquí puedes añadir la lógica para sumar puntos
+        // Aquí puedes añadir la lógica para sumar puntos.
     } else {
-        // Respuesta incorrecta
+        Swal.fire({
+            title: "Incorrect!",
+            text: `You selected: ${selectedAnswer}. That's wrong!`,
+            icon: "error"
+        });
         if (selectedAnswer) {
             trueButton.classList.add('btn-danger');
             falseButton.classList.add('btn-success');
@@ -172,11 +195,12 @@ function checkBooleanAnswer(selectedAnswer, isCorrectAnswerTrue) {
             falseButton.classList.add('btn-danger');
             trueButton.classList.add('btn-success');
         }
-        // Aquí puedes añadir la lógica para restar puntos
+        // Aquí puedes añadir la lógica para restar puntos.
     }
-        // Desactivar ambos botones después de que se seleccione una respuesta
-        trueButton.disabled = true;
-        falseButton.disabled = true;
+
+    // Desactivar ambos botones después de que se seleccione una respuesta
+    trueButton.disabled = true;
+    falseButton.disabled = true;
 }
 
 // Función principal para controlar la lógica de la aplicación
@@ -184,18 +208,12 @@ async function getQuestion() {
     triviaContainer.innerHTML = '';
 
     const { category, correct_answer, incorrect_answers, question, type } = await fetchTriviaData();
-
     const decodedQuestion = decodeHtml(question);
 
-    console.log(correct_answer)
+    console.log(`From main ${correct_answer}`)
 
     // Crea y añade el contenedor de categoría y tipo
-    const categoryTypeContainer = document.createElement('div');
-    categoryTypeContainer.classList.add('label-container');
-    categoryTypeContainer.id = 'categoryTypeContainer';
-    categoryTypeContainer.innerHTML = `<span class='mb-2'>Category: ${category}</span><span class='mb-2'>Type: ${type}</span>`;
-
-    triviaContainer.append(categoryTypeContainer);
+    triviaContainer.append(createCategortTypeContainer(category,type));
 
     // Crea y añade el contenedor específico de tipo de pregunta
     if (type === 'multiple') {
