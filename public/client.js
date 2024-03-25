@@ -68,7 +68,7 @@ function createMultipleChoiceContainer(question, incorrect_answers, correct_answ
         btnContainer.append(button);
 
         button.addEventListener('click', () => {
-            checkAnswer(index, answer, correct_answer);
+            checkMultipleAnswer(index, answer, correct_answer);
         });
     })
 
@@ -77,7 +77,8 @@ function createMultipleChoiceContainer(question, incorrect_answers, correct_answ
 }
 
 // verificar la contestacion multiple
-function checkAnswer(selectedIndex, selectedAnswer, correctAnswer) {
+function checkMultipleAnswer(selectedIndex, selectedAnswer, correctAnswer) {
+    questionBtnToggle()
     const buttons = document.querySelectorAll('.multiBtnanswers');
 
     // Reiniciar las clases CSS de todos los botones
@@ -145,6 +146,7 @@ function createBooleanContainer(question, correct_answer) {
 
 // check boolean answer function
 function checkBooleanAnswer(selectedAnswer, isCorrectAnswerTrue) {
+    questionBtnToggle()
     const trueButton = document.getElementById('trueBtn');
     const falseButton = document.getElementById('falseBtn');
 
@@ -180,7 +182,6 @@ function checkBooleanAnswer(selectedAnswer, isCorrectAnswerTrue) {
 // Función principal para controlar la lógica de la aplicación
 async function getQuestion() {
     triviaContainer.innerHTML = '';
-    questionBtnToggle()
 
     const { category, correct_answer, incorrect_answers, question, type } = await fetchTriviaData();
 
