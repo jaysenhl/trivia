@@ -79,3 +79,14 @@ h3,h4 {
     padding: 5px 5px;
     margin-bottom: 0;
 }
+
+.swalFooter {
+    background-color: rgb(76, 241, 123);
+    border-radius: 15px;
+}
+
+.swalIncorrect {
+    background-color: rgb(255, 21, 71);
+    border-radius: 15px;
+    color: white;
+}

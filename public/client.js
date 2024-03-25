@@ -22,7 +22,7 @@
 
 // URL de la API
 
-const api_url = 'https://opentdb.com/api.php?amount=1&type=multiple&type=boolean';
+const api_url = 'https://opentdb.com/api.php?amount=1';
 const triviaContainer = document.getElementById('triviaContainer');
 
 // hide and unhide random button due to api call restriction every second
@@ -103,7 +103,7 @@ function checkMultipleAnswer(selectedIndex, selectedAnswer, correctAnswer) {
     buttons.forEach((button, index) => {
         if (button.textContent === correctAnswer) {
             // Resaltar la respuesta correcta
-            button.classList.add('btn-success');
+            button.classList.add('btn-success');        
         } else if (index === selectedIndex) {
             // Resaltar la respuesta incorrecta seleccionada por el usuario
             button.classList.add('btn-danger');
@@ -113,8 +113,20 @@ function checkMultipleAnswer(selectedIndex, selectedAnswer, correctAnswer) {
         // Puedes colocar la lógica para actualizar la puntuación aquí
         if (selectedAnswer === correctAnswer) {
             // Lógica para respuesta correcta
+            Swal.fire({
+                icon: "success",
+                title: "Correct!",
+                text: "Great! +10 points",
+                footer: `<h3 class="swalFooter">You selected: ${selectedAnswer}. That's right!</h3>`
+            });
         } else {
             // Lógica para respuesta incorrecta
+            Swal.fire({
+                icon: "error",
+                title: `Incorrect!! you chose: ${selectedAnswer}`,
+                text: "Too bad! -10 points",
+                footer: `<h3 class="swalFooter">The Correct answer is: ${correctAnswer}</h3>`
+            });
         }
 }
 
@@ -170,9 +182,10 @@ function checkBooleanAnswer(selectedAnswer, isCorrectAnswerTrue) {
      // Configurar la respuesta y los estilos de los botones basado en si la respuesta es correcta.
      if (isCorrect) {
         Swal.fire({
+            icon: "success",
             title: "Correct!",
-            text: `You selected: ${selectedAnswer}. That's right!`,
-            icon: "success"
+            text: "Great! +10 points",
+            footer:`<h3 class="swalFooter">You selected: ${selectedAnswer}. That's right!</h3>`
         });
         if (selectedAnswer) {
             trueButton.classList.add('btn-success');
@@ -184,9 +197,10 @@ function checkBooleanAnswer(selectedAnswer, isCorrectAnswerTrue) {
         // Aquí puedes añadir la lógica para sumar puntos.
     } else {
         Swal.fire({
+            icon: "error",
             title: "Incorrect!",
-            text: `You selected: ${selectedAnswer}. That's wrong!`,
-            icon: "error"
+            text: "Too Bad! -10 points",
+            footer: `<h3 class="swalIncorrect">You selected: ${selectedAnswer}. That's wrong!</h3>`
         });
         if (selectedAnswer) {
             trueButton.classList.add('btn-danger');
