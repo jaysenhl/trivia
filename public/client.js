@@ -3,7 +3,8 @@
     - acortar codigo de getQuestion() la creacion de html es execisva, se debe poner en otra funcion aparte que acepte argumentos y llamarla 
     DONE cambiar de lugar las posiciones de la respuesta correcta
     DONE validar si la que la seleccion sea correcta o incorrecta en cierto y falso
-    - validar si la que la seleccion sea correcta o incorrecta en selección multiple
+    DONE validar si la que la seleccion sea correcta o incorrecta en selección multiple
+    - mostrar con alert JS una alerta con la contestacion y los puntos obtenidos o restados
     - restar puntos y sumar puntos dependiendo la contestacion
     - anadir los botones de boolean y multi
     - Anadir timer de 7 segundos para contestar
@@ -18,7 +19,7 @@
  */
 
 // URL de la API
-const api_url = 'https://opentdb.com/api.php?amount=1';
+const api_url = 'https://opentdb.com/api.php?amount=1&type=multiple';
 const triviaContainer = document.getElementById('triviaContainer');
 
 // hide and unhide random button due to api call restriction every second
@@ -73,6 +74,35 @@ function createMultipleChoiceContainer(question, incorrect_answers, correct_answ
 
     container.append(btnContainer);
     return container;
+}
+
+// verificar la contestacion multiple
+function checkAnswer(selectedIndex, selectedAnswer, correctAnswer) {
+    const buttons = document.querySelectorAll('.multiBtnanswers');
+
+    // Reiniciar las clases CSS de todos los botones
+    buttons.forEach((button) => {
+        button.classList.remove('btn-info','btn-success', 'btn-danger');
+        button.disabled = true
+    });
+    
+    // Resaltar la respuesta incorrecta seleccionada y la respuesta correcta
+    buttons.forEach((button, index) => {
+        if (button.textContent === correctAnswer) {
+            // Resaltar la respuesta correcta
+            button.classList.add('btn-success');
+        } else if (index === selectedIndex) {
+            // Resaltar la respuesta incorrecta seleccionada por el usuario
+            button.classList.add('btn-danger');
+        }
+    });
+    
+        // Puedes colocar la lógica para actualizar la puntuación aquí
+        if (selectedAnswer === correctAnswer) {
+            // Lógica para respuesta correcta
+        } else {
+            // Lógica para respuesta incorrecta
+        }
 }
 
 // Función para crear el contenedor de preguntas booleanas
