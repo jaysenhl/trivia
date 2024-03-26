@@ -24,7 +24,7 @@ async function fetchTriviaData(category = null) {
     }
     const response = await fetch(api_url);
     const data = await response.json();
-    return data.results[0];
+    return data.result;
 }
 
 // Función para decodificar caracteres especiales
