@@ -7,6 +7,7 @@
     DONE mostrar con alert JS una alerta para las booleans
     DONE mostrar con alert JS una alerta para las multiples
     DONE mostrar con alert JS una alerta con la contestacion y los puntos obtenidos o restados
+    DONE moved random question button and category select to a container to have it hidden and reopened
     - restar puntos y sumar puntos dependiendo la contestacion
     - Anadir timer de 7 segundos para contestar?
     DONE - Anadir un timer para cuando se oprima se desabilite por 2 segundos (Evitar multiple sends)
@@ -19,6 +20,7 @@
     - anadir icons
  */
 
+const questionBtnsContainer = document.getElementById('questionBtnsContainer')
 const categorySelect = document.querySelector('.selectOption')
 const random_api_url = 'https://opentdb.com/api.php?amount=1';
 const triviaContainer = document.getElementById('triviaContainer');
@@ -27,8 +29,8 @@ const questionBtn = document.getElementById('random')
 
 // hide and unhide random button due to api call restriction every second
 function questionBtnToggle(){
-    questionBtn.style.visibility = 'hidden'
-    setTimeout(()=>questionBtn.style.visibility = 'visible',3000)
+    questionBtnsContainer.style.display = 'none'
+    setTimeout(()=>questionBtnsContainer.style.display = 'block',3000)
 }
 
 // Función para obtener datos de la API
@@ -223,6 +225,7 @@ function checkBooleanAnswer(selectedAnswer, isCorrectAnswerTrue) {
 // Función principal para controlar la lógica de la aplicación
 async function getQuestion(selectedCategory=null) {
     triviaContainer.innerHTML = '';
+    questionBtnToggle()
     
     const data = await fetchTriviaData(selectedCategory)
     const { category: fetchedCategory, correct_answer, incorrect_answers, question, type } = data;
