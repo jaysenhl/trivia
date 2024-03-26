@@ -30,7 +30,11 @@ const questionBtn = document.getElementById('random')
 // hide and unhide random button due to api call restriction every second
 function questionBtnToggle(){
     questionBtnsContainer.style.display = 'none'
-    setTimeout(()=>questionBtnsContainer.style.display = 'block',3000)
+    setTimeout(()=>{
+        questionBtnsContainer.style.display = 'block'
+        categorySelect.value = "Select A Category"
+    },3000)
+
 }
 
 // Función para obtener datos de la API
@@ -95,7 +99,7 @@ function createMultipleChoiceContainer(question, incorrect_answers, correct_answ
 
 // verificar la contestacion multiple
 function checkMultipleAnswer(selectedIndex, selectedAnswer, correctAnswer) {
-    questionBtnToggle()
+    //questionBtnToggle()
     const buttons = document.querySelectorAll('.multiBtnanswers');
 
     // Reiniciar las clases CSS de todos los botones
@@ -175,7 +179,7 @@ function createBooleanContainer(question, correct_answer) {
 
 // check boolean answer function
 function checkBooleanAnswer(selectedAnswer, isCorrectAnswerTrue) {
-    questionBtnToggle()
+    //questionBtnToggle()
 
     const trueButton = document.getElementById('trueBtn');
     trueButton.classList.remove('btn-info')
