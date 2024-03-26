@@ -1,6 +1,7 @@
 const questionBtnsContainer = document.getElementById('questionBtnsContainer')
 const categorySelect = document.querySelector('.selectOption')
-const random_api_url = 'https://opentdb.com/api.php?amount=1';
+//const random_api_url = 'https://opentdb.com/api.php?amount=1';
+const random_api_url = 'https://your-app-name.netlify.app/.netlify/functions/trivia';
 const triviaContainer = document.getElementById('triviaContainer');
 
 const questionBtn = document.getElementById('random')
