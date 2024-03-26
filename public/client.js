@@ -5,11 +5,10 @@
     DONE validar si la que la seleccion sea correcta o incorrecta en cierto y falso
     DONE validar si la que la seleccion sea correcta o incorrecta en selección multiple
     DONE mostrar con alert JS una alerta para las booleans
-    - mostrar con alert JS una alerta para las multiples
-    - mostrar con alert JS una alerta con la contestacion y los puntos obtenidos o restados
+    DONE mostrar con alert JS una alerta para las multiples
+    DONE mostrar con alert JS una alerta con la contestacion y los puntos obtenidos o restados
     - restar puntos y sumar puntos dependiendo la contestacion
-    - anadir los botones de boolean y multi
-    - Anadir timer de 7 segundos para contestar
+    - Anadir timer de 7 segundos para contestar?
     DONE - Anadir un timer para cuando se oprima se desabilite por 2 segundos (Evitar multiple sends)
     - anadir usuarios
     - anadir base de datos de usuario (local storage)
@@ -20,9 +19,8 @@
     - anadir icons
  */
 
-// URL de la API
-
-const api_url = 'https://opentdb.com/api.php?amount=1';
+const categorySelect = document.querySelector('.selectOption')
+const random_api_url = 'https://opentdb.com/api.php?amount=1';
 const triviaContainer = document.getElementById('triviaContainer');
 
 const questionBtn = document.getElementById('random')
@@ -34,7 +32,11 @@ function questionBtnToggle(){
 }
 
 // Función para obtener datos de la API
-async function fetchTriviaData() {
+async function fetchTriviaData(category = null) {
+    let api_url = random_api_url
+    if(category && category !== "Select A Category"){
+        api_url += `&category=${category}`
+    }
     const response = await fetch(api_url);
     const data = await response.json();
     return data.results[0];
@@ -219,16 +221,19 @@ function checkBooleanAnswer(selectedAnswer, isCorrectAnswerTrue) {
 }
 
 // Función principal para controlar la lógica de la aplicación
-async function getQuestion() {
+async function getQuestion(selectedCategory=null) {
     triviaContainer.innerHTML = '';
+    
+    const data = await fetchTriviaData(selectedCategory)
+    const { category: fetchedCategory, correct_answer, incorrect_answers, question, type } = data;
 
-    const { category, correct_answer, incorrect_answers, question, type } = await fetchTriviaData();
+    //remove special characters from question
     const decodedQuestion = decodeHtml(question);
 
     console.log(`From main ${correct_answer}`)
 
     // Crea y añade el contenedor de categoría y tipo
-    triviaContainer.append(createCategortTypeContainer(category,type));
+    triviaContainer.append(createCategortTypeContainer(fetchedCategory,type));
 
     // Crea y añade el contenedor específico de tipo de pregunta
     if (type === 'multiple') {
@@ -240,3 +245,8 @@ async function getQuestion() {
     }
 }
 
+document.getElementById('random').addEventListener('click', () => getQuestion());
+categorySelect.addEventListener('change', () => {
+    const selectedCategory = categorySelect.value;
+    getQuestion(selectedCategory);
+});
