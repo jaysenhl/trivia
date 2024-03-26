@@ -1,25 +1,3 @@
-/**
-    TODO
-    - acortar codigo de getQuestion() la creacion de html es execisva, se debe poner en otra funcion aparte que acepte argumentos y llamarla 
-    DONE cambiar de lugar las posiciones de la respuesta correcta
-    DONE validar si la que la seleccion sea correcta o incorrecta en cierto y falso
-    DONE validar si la que la seleccion sea correcta o incorrecta en selección multiple
-    DONE mostrar con alert JS una alerta para las booleans
-    DONE mostrar con alert JS una alerta para las multiples
-    DONE mostrar con alert JS una alerta con la contestacion y los puntos obtenidos o restados
-    DONE moved random question button and category select to a container to have it hidden and reopened
-    - restar puntos y sumar puntos dependiendo la contestacion
-    - Anadir timer de 7 segundos para contestar?
-    DONE - Anadir un timer para cuando se oprima se desabilite por 2 segundos (Evitar multiple sends)
-    - anadir usuarios
-    - anadir base de datos de usuario (local storage)
-    - anadir base de datos de usuario (online)
-    - anadir sistema de puntos
-    - anadir pantalla login con user y password
-    - anadir disenos mejorar user interface
-    - anadir icons
- */
-
 const questionBtnsContainer = document.getElementById('questionBtnsContainer')
 const categorySelect = document.querySelector('.selectOption')
 const random_api_url = 'https://opentdb.com/api.php?amount=1';
@@ -99,7 +77,6 @@ function createMultipleChoiceContainer(question, incorrect_answers, correct_answ
 
 // verificar la contestacion multiple
 function checkMultipleAnswer(selectedIndex, selectedAnswer, correctAnswer) {
-    //questionBtnToggle()
     const buttons = document.querySelectorAll('.multiBtnanswers');
 
     // Reiniciar las clases CSS de todos los botones
@@ -179,7 +156,6 @@ function createBooleanContainer(question, correct_answer) {
 
 // check boolean answer function
 function checkBooleanAnswer(selectedAnswer, isCorrectAnswerTrue) {
-    //questionBtnToggle()
 
     const trueButton = document.getElementById('trueBtn');
     trueButton.classList.remove('btn-info')
